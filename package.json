@@ -1,0 +1,20 @@
+{
+  "name": "lp-mobi_lending",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite --host --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.4",
+    "sass": "^1.69.5",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "serve": "^14.2.1",
+    "split-type": "^0.3.4"
+  }
+}
