@@ -1,70 +1,238 @@
-.wrapper {
-    padding-left: 2%;
-    width: 600px;
-    height: 100vh;
-    position: fixed;
-    left: 30vw;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color:aquamarine;
+*{
+    box-sizing: border-box;
 }
 
+.hide-scroll-wrapper {
+    width: 680px;
+    height: 100vh;
+    position: absolute;
+    left: 30vw;
+    overflow-x: hidden;
+}
+.wrapper {
+    padding-left: 10%;
+    width: 700px;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    overflow-y: auto;
+    background-color: #7fffd4;
+}
 #news-container{
     display: flex;
     flex-direction: column-reverse;
+    padding-left: 10px;
     .post-wrapper {
-        margin: 20px 0 50px 0;
+        margin: 30px 0;
         width: 500px;
         height: auto;
         position: relative;
+        background-color: #fff;
+        border: solid 1px #d7e3ec;
+        border-radius: 0 8px 8px 8px;
+        i {
+            pointer-events: none;
+            position: absolute;
+            left: -8px;
+            top: -1px;
+        }
+        .lp-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            position: absolute;
+            right: calc(100% + 10px);
+            background-color: #fff;
+        }
+        .lp-name {
+            padding: 15px 0 10px 20px;
+            a{
+                font-size: 16px;
+                font-weight: 600;
+                color: #2481CC;
+                text-decoration: none;
+            }
+            
+        }
+        .post-photo {
+            width: 100%;
+            margin-bottom: 15px;
+        }
     }
-    iframe {
+    .post-body {
+        width: 100%;
+        padding: 0px 20px 50px 20px;
+        font-size: 16px;
+        line-height: 21px;
         
     }
+    .body-link {
+        color: #2481cc;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     .reactions-wrapper{
-        width: calc(94% - 45px);
-        height: 30px;
+        width: 100%;
+        height: 40px;
         position: absolute;
         padding-left: 17px;
-        bottom: 9px;
-        right: 10px;
-        font-size: 16px;
-        background-color: #fff;
-        background-size: 200%;
+        bottom: 5px;
+        right: 0;
+        font-size: 18px;
         display: flex;
+        align-items: center;
         .reaction-container{
-            margin-top: 6px;
+           
             margin-right: 10px;
-            height: 24px;
+            height: 30px;
             display: flex;
-            background-color: #3fb8f011;
-            padding: 0 4px;
-            border-radius: 12px;
+            background-color: #3fb8f01c;
+            padding: 0 6px;
+            border-radius: 15px;
+            align-items: end;
             cursor: pointer;
+            &:hover {
+                transition: background-color 0.3s;
+                background-color: #3fb8f026;
+            }
         }
         span {
             cursor: default;
-            margin-right: 3px;
-            line-height: 24px;
+            margin-right: 4px;
+            line-height: 30px;
             pointer-events: none;
         }
         .text {
+            margin-left: 2px;
             font-family: sans-serif;
             color: #2481cc;
             font-weight: 500;
+            font-size: 16px;
         }
         .info {
-            margin-top: 6px;
+            height: 100%;
             position: absolute;
-            right: 8px;
-            font-family: sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            color: #00000052;
+            right: 13px;
+            display: flex;
+            align-items: end;
+            padding-bottom: 3px;
+            a {
+                font-family: sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                color: #00000052;
+                text-decoration: none;
+            }
             .views {
-                margin-right: 8px;
+                margin-right: 10px;
+            }
+            .date {
+                margin-right: 0;
+            }
+        }
+    }
+    .link {
+        padding: 0px 50px 0px 0;
+        display: block;
+        font-size: 14px;
+        line-height: 18px;
+        text-decoration: none;
+        color: #212121;
+        &-image {
+            position: relative;
+            margin: 5px 0 10px 0;
+            img{
+                width: 100%;
+                border-radius: 20px;
+            }
+            .play-button {
+                width: 70px;
+                height: 70px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 35px;
+                background-color: #0000005d;
+                backdrop-filter: blur(4px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:before {
+                    content: '\a011';
+                    font-family: 'lp-font';
+                    color: #fff;
+                    font-size: 37px;
+                    transform: translateX(-1px);
+                }
+            }
+        }
+        &-wrapper {
+            padding-left: 10px;
+            margin-top: 15px;
+            border-left: solid 2px #2481CC;
+        }
+        &-siteName {
+            color: #2481CC;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        &-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        &-body {
+            max-height: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+
+.visual-panel{
+    position: absolute;
+    width: 700px;
+    height: 100vh;
+    padding-left: 10%;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    pointer-events: none;
+    .scroll-place {
+        height: 95vh;
+        width: 4px;
+        position: sticky;
+        left: 98%;
+        
+        top: 2.5vh;
+        background-color: #ffffff61;
+        border-radius: 5px;
+        .scroll-caret {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            border-radius: 5px;
+            background-color: #0000001f;
+        }
+    }
+    .date-container {
+        display: flex;
+        flex-direction: column-reverse;
+        padding-left: 10px;
+        div {
+            height: auto;
+            position: relative;
+            width: 100%;
+            .date-element {
+                top: 20px;
+            }
+            .sticky{
+                position: sticky;
             }
         }
     }
 }
-
