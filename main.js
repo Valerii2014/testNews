@@ -13,11 +13,10 @@ const reactionFilter = (reaction) => {
 console.log(data)
 
 const wrapper = document.querySelector('.wrapper')
-const dateWrapper = document.querySelector('.visual-panel')
 const container = document.querySelector('#news-container')
 
 const scrollCaret = document.querySelector('.scroll-caret')
-const dateContainer = document.querySelector('.date-container') 
+
 let currentScrollPosition = 0
 
 let renderIndex = -1
@@ -47,24 +46,28 @@ function renderPosts(){
     data.forEach((postData, i) => {
         if(i <= renderIndex || i > avaliableRenderIndex ) return
         renderIndex = i
-        console.log(bindDateData(postData, dateData), dateData)
-        console.log(dateData[i])
+        bindDateData(postData, dateData)
+
         const filteredReactions = reactionFilter(postData.reactions)
+        const stikcyWrapper = document.createElement('div')
+        
         const postWrapper = document.createElement('div')
+        
         const postInnerLink = !postData.webpage ? '' : `
-            <a class="link" href="${postData.webpage.url}" target="_blank">
-                <div class="link-wrapper">
-                    <div class="link-siteName">${postData.webpage.siteName}</div>
-                    ${postData.webpage.photo ? `<div class="link-image"><img src="${postData.webpage.photo}"></img>
-                        ${postData.webpage.siteName === 'YouTube' ? `<div class="play-button">
-                        </div>` : ''}
-                    </div>` : ''}
-                    ${postData.webpage.title ? `<div class="link-title">${addBr(postData.webpage.title)}</div>` : ''}
-                    ${postData.webpage.descr ? `<div class="link-body">${addBr(postData.webpage.descr)}</div>` : ''}
-                </div>
-            </a>
+        <a class="link" href="${postData.webpage.url}" target="_blank">
+        <div class="link-wrapper">
+        <div class="link-siteName">${postData.webpage.siteName}</div>
+        ${postData.webpage.photo ? `<div class="link-image"><img src="${postData.webpage.photo}"></img>
+        ${postData.webpage.siteName === 'YouTube' ? `<div class="play-button">
+        </div>` : ''}
+        </div>` : ''}
+        ${postData.webpage.title ? `<div class="link-title">${addBr(postData.webpage.title)}</div>` : ''}
+        ${postData.webpage.descr ? `<div class="link-body">${addBr(postData.webpage.descr)}</div>` : ''}
+        </div>
+        </a>
         `
         postWrapper.id = postData.id
+        stikcyWrapper.classList.add('sticky-wrapper')
         postWrapper.classList.add('post-wrapper')
         postWrapper.innerHTML = `
 
@@ -106,22 +109,19 @@ function renderPosts(){
                 </div>
             </div>
         `
-    
-        container.appendChild(postWrapper)
+        stikcyWrapper.appendChild(postWrapper)
+        container.appendChild(stikcyWrapper)
     })
-    createDateElements(dateData, dateContainer)
+
 }
 
 let isAvailable = true
 const resizeObserver = new ResizeObserver(entries => {
         scrollCaret.style.height = `${(window.innerHeight * 0.95) * (window.innerHeight/container.offsetHeight)}px`
-        dateContainer.style.height = `${container.offsetHeight}px`
 
-        console.log(dateWrapper.scrollTop, wrapper.scrollTop)
         const scrollValue = container.offsetHeight 
         isAvailable = false
         wrapper.scrollTop = scrollValue - currentScrollPosition
-        dateWrapper.scrollTop = scrollValue - currentScrollPosition
         scrollCaret.style.top = `${100 / (container.offsetHeight / wrapper.scrollTop)}%`
         // currentHeight = container.offsetHeight
        setTimeout(() => isAvailable = true, 100)
@@ -132,47 +132,11 @@ resizeObserver.observe(container)
 wrapper.addEventListener('scroll', (e) => {
     if(!isAvailable) return
     currentScrollPosition = container.offsetHeight - wrapper.scrollTop
-    
-    dateWrapper.scrollTop = e.target.scrollTop + window.innerHeight
-    console.log(dateWrapper.scrollTop, wrapper.scrollTop)
+
     scrollCaret.style.top = `${100 / (container.offsetHeight / (wrapper.scrollTop))}%`
-    if(wrapper.scrollTop < 300){
+    if(wrapper.scrollTop < 1){
         avaliableRenderIndex + 3 > data.length - 1 ? avaliableRenderIndex = data.length - 1 : avaliableRenderIndex += 3
         renderPosts()
     }
 })
 
-setTimeout( () => {
-    console.log(dateWrapper.scrollTop, wrapper.scrollTop)
-}, 2000)
-// window.addEventListener('message', event => {
-  
-//     if(event.origin !== "https://t.me") return
-//     try {
-//         const eventData = JSON.parse(event.data);
-//         if (eventData.event === 'resize') {
-//             const documentHeight = eventData.height;
-
-            
-//             // Далее можно выполнить необходимые действия при изменении размера iframe
-//             const iframes = document.getElementsByTagName('iframe');
-            
-//             for (let i = 0; i < iframes.length; i++) {
-//                 if (iframes[i].contentWindow === event.source) {
-
-//                     iframes[i].style.height = `${documentHeight}px`
-//                     break;
-//                 }
-//             }
-           
-//         }
-//     } catch (error) {
-//         console.error('Ошибка при разборе данных события:', error);
-//     }
-// });
-
-// Отправка сообщения из родительского окна в iframe
-// setTimeout(() => {
-//     console.log('send');
-//     lastElement.contentWindow.postMessage({ type: 'requestSize' }, '*');
-// }, 2000);

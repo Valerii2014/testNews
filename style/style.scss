@@ -57,6 +57,7 @@
         .post-photo {
             width: 100%;
             margin-bottom: 15px;
+            min-height: 300px;
         }
     }
     .post-body {
@@ -146,6 +147,7 @@
             img{
                 width: 100%;
                 border-radius: 20px;
+                min-height: 220px;
             }
             .play-button {
                 width: 70px;
@@ -194,7 +196,7 @@
 
 .visual-panel{
     position: absolute;
-    width: 700px;
+    width: 680px;
     height: 100vh;
     padding-left: 10%;
     left: 0;
@@ -204,8 +206,8 @@
     .scroll-place {
         height: 95vh;
         width: 4px;
-        position: sticky;
-        left: 98%;
+        position: absolute;
+        right: 5px;
         
         top: 2.5vh;
         background-color: #ffffff61;
