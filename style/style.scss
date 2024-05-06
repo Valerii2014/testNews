@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    outline: none !important;
 }
 
 .hide-scroll-wrapper {
@@ -8,20 +9,58 @@
     position: absolute;
     left: 30vw;
     overflow-x: hidden;
+    .scroll-down-button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        bottom: 50px;
+        right: 26px;
+        border-radius: 20px;
+        background-color: #ffffff82;
+        pointer-events: all;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity cubic-bezier(.18,.87,.18,.87) 0.6s, pointer-events 0.7s;
+        svg {
+            width: 20px;
+            height: 20px;
+            rotate: -90deg;
+            translate: 0 1px;
+            path { transition: fill 0.2s;}
+        }
+        &:hover {
+            background-color: #ffffffc1;;
+            path {
+                fill: #0000004f;
+            }
+        }
+    }
+    .scroll-down-button.hide {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 .wrapper {
-    padding-left: 10%;
+    padding-left: 12%;
     width: 700px;
     height: 100vh;
     position: absolute;
     left: 0;
     overflow-y: auto;
     background-color: #7fffd4;
+
 }
 #news-container{
     display: flex;
     flex-direction: column-reverse;
-    padding-left: 10px;
+    padding: 20px 0 20px 10px;
+    .flex-reverse {
+        display: flex;
+        flex-direction: column-reverse;
+    }
     .post-wrapper {
         margin: 30px 0;
         width: 500px;
@@ -62,7 +101,7 @@
     }
     .post-body {
         width: 100%;
-        padding: 0px 20px 50px 20px;
+        padding: 0px 20px 53px 20px;
         font-size: 16px;
         line-height: 21px;
         
@@ -85,7 +124,7 @@
         display: flex;
         align-items: center;
         .reaction-container{
-           
+           text-decoration: none;
             margin-right: 10px;
             height: 30px;
             display: flex;
@@ -94,9 +133,10 @@
             border-radius: 15px;
             align-items: end;
             cursor: pointer;
+            outline: none;  
             &:hover {
                 transition: background-color 0.3s;
-                background-color: #3fb8f026;
+                background-color: #3fb8f038;
             }
         }
         span {
@@ -104,13 +144,15 @@
             margin-right: 4px;
             line-height: 30px;
             pointer-events: none;
+            text-shadow: none;
         }
         .text {
             margin-left: 2px;
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
             color: #2481cc;
-            font-weight: 500;
+            font-weight: 400;
             font-size: 16px;
+            text-shadow: none;
         }
         .info {
             height: 100%;
@@ -118,24 +160,32 @@
             right: 13px;
             display: flex;
             align-items: end;
-            padding-bottom: 3px;
+            padding-bottom: 4px;
+
             a {
-                font-family: sans-serif;
+                font-family: 'Roboto', sans-serif;
                 font-size: 14px;
                 font-weight: 400;
                 color: #00000052;
                 text-decoration: none;
+                text-shadow: none;
             }
             .views {
                 margin-right: 10px;
+                height: 20px;
+                span {
+                    color: #000000ab;
+               
+                }
             }
             .date {
                 margin-right: 0;
+                height: 12px;
             }
         }
     }
     .link {
-        padding: 0px 50px 0px 0;
+        padding: 0px 30px 0px 0;
         display: block;
         font-size: 14px;
         line-height: 18px;
@@ -173,6 +223,7 @@
         }
         &-wrapper {
             padding-left: 10px;
+            padding-bottom: 2px;
             margin-top: 15px;
             border-left: solid 2px #2481CC;
         }
@@ -184,25 +235,78 @@
         &-title {
             font-weight: 600;
             margin-bottom: 5px;
+            overflow: hidden;
+            display: -webkit-box;
+            display: -moz-box;
+            box-orient: vertical;
+            -webkit-box-orient: vertical;
+            -moz-box-orient: vertical;
+            line-clamp: 3;
+            -webkit-line-clamp: 3;
         }
         &-body {
-            max-height: 160px;
             overflow: hidden;
-            text-overflow: ellipsis;
+            display: -webkit-box;
+            display: -moz-box;
+            box-orient: vertical;
+            -webkit-box-orient: vertical;
+            -moz-box-orient: vertical;
+            line-clamp: 9;
+            -webkit-line-clamp: 9;
+        }
+        .noto-color-emoji-regular{
+            font-size: 16px;
         }
     }
 }
 
+.date-container {
+    width: 500px;
+    position: relative;
+    margin-bottom: 5px;
+    // display: flex;
+    // flex-direction: column-reverse;
+}
+.date-sticky-element {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    span {
+        background-color: #0037324d;
+        padding: 5px 7px;
+        border-radius: 15px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #fff;
+        backdrop-filter: blur(5px);
+
+    }
+    // &:before{
+    //     content: '';
+    //     position: absolute;
+    //     height: 100%;
+    //     width: 100%;
+    //     left: 50%;
+    //     top: 50%;
+    //     border-radius: 16.5px;
+    //     transform: translate(-50%, -50%);
+    //     border: 2px solid rgba(2, 1, 1, 0.397);
+    // }
+}
 
 .visual-panel{
     position: absolute;
-    width: 680px;
+    width: 20px;
     height: 100vh;
-    padding-left: 10%;
-    left: 0;
+    right: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    pointer-events: none;
+    pointer-events: all;
+    opacity: 1;
+    transition: opacity cubic-bezier(.18,.87,.18,.87) 0.6s;
     .scroll-place {
         height: 95vh;
         width: 4px;
@@ -237,4 +341,12 @@
             }
         }
     }
+}
+.visual-panel.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.noto-color-emoji-regular{
+    font-size: 18px;
 }
