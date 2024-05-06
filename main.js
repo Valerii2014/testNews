@@ -4,7 +4,7 @@ import data from '../userBot/messageIds.json'
 import {bindDateData, formatDate} from './js/date'
 
 
-
+console.log(data)
 const dateData = {}
 const queue = []
 
@@ -65,9 +65,11 @@ function renderPosts(){
         bindDateData(postData, dateData, queue, container)
 
         const filteredReactions = reactionFilter(postData.reactions)
-
         
         const postWrapper = document.createElement('div')
+        if(filteredReactions.length <= 0){
+            postWrapper.classList.add('noreaction')
+        }
         
         const postInnerLink = !postData.webpage ? '' : `
         <a class="link" href="${postData.webpage.url}" target="_blank">
@@ -120,7 +122,7 @@ function renderPosts(){
                 }
                 <div class="info">
                 
-                    <a target="_blank" href="${postData.postLink}" class="views"><span>👁️</span>${postData.views}</a>
+                    <a target="_blank" href="${postData.postLink}" class="views"><span>👁️</span>${typeof postData.views === 'number' ? postData.views : 0}</a>
                     <a target="_blank" href="${postData.postLink}" class="date">${formatDate(postData.date, true)}</a>
                 </div>
             </div>
@@ -161,9 +163,20 @@ const resizeObserver = new ResizeObserver(entries => {
         scrollCaret.style.top = `${100 / (container.offsetHeight / wrapper.scrollTop)}%`
         // currentHeight = container.offsetHeight
        setTimeout(() => isAvailable = true, 100)
+       
+    })
+    resizeObserver.observe(container)
     
-})
-resizeObserver.observe(container)
+
+const firstRenderInterval = setInterval(() => {
+    console.log(avaliableRenderIndex)
+    if(container.offsetHeight < window.innerHeight && avaliableRenderIndex < data.length) {
+        avaliableRenderIndex += 3
+        renderPosts()
+    } else {
+        clearInterval(firstRenderInterval)
+    }
+},200)
 
 let buttonIsAvaliable = true
 downButton.addEventListener('click', () => {
